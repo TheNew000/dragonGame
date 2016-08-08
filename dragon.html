@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="dragonApp">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="dragon.js"></script>
+
+    <style>
+        #game{
+            text-align: center;
+        /*     background-image: url("medieval.jpg");
+            background-size: 100%; */
+        }
+
+        #medieval{
+            height: 100vh;
+        }
+        
+        .health, .rolls{
+            display: inline-block;
+        }
+
+        .health:last-child{
+            margin-left: 30px;
+        }
+
+        .ham{
+            margin-left: 60px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body ng-controller="dragonCtrl">
+
+    <div id="game">
+        <div id="counter">
+            
+            <div class="health"><h3>Hero's Health</h3>{{heroHealth}}</div>
+            <div class="health"><h3>Dragon's Health</h3>{{dragonHealth}}</div>
+        </div>
+    
+        <div class="rolls" ng-show="hasrolled">
+            <h3>Your Roll</h3>
+            <div id="playerDice" ng-repeat="die in playerDice track by $index">
+                <img ng-src="{{die}}">
+            </div>
+            Roll Total: {{heroTotal}}
+        </div>
+
+        <div class="ham" ng-show="hasrolled">
+            <h3>Dragon's Roll</h3>
+            <div id="dragonDice" ng-repeat="die in dragonDice track by $index" >
+                <img ng-src="{{die}}">
+            </div>
+                Roll Total: {{dragonTotal}}
+        </div> 
+
+        <div id="picture">
+        <h1>Fight the Dragon!</h1>
+            <img ng-src="{{pic}}">
+        </div>
+        {{message}}
+        <form ng-submit="rollDice()">
+            <button type="submit" ng-disabled="isDisabled">Fight!</button>
+            <button type="button" ng-disabled="isDisabled" ng-click="coward()">Flee!</button>
+        </form>
+        <div id="special">
+            <button type="button" ng-disabled="isDisabled" ng-click="specialRoll()">Special Roll!!</button>
+            <button type="button" ng-disabled="potionDisabled" ng-click="potion()">Magic Potion!!</button>
+            <p>If you choose to fight you must roll a 9 or higher or you will be burnt to a crisp!</p>
+            <button type="button" ng-click="tryAgain()">Retry!!</button>
+        </div>       
+    </div>
+
+</body>
+</html>
